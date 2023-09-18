@@ -1,0 +1,3 @@
+image: public.ecr.aws/q1s1c0a0/my-custom-public-ecr:getmesh-latest
+oidcRole: arn:aws:iam::123456789012:role/getmesh-access-to-acm-pca
+signingCAArn: arn:aws:acm-pca:us-west-1:123456789012:certificate-authority/acaeb011-b7a2-42da-310f-1ce38deaa1c1

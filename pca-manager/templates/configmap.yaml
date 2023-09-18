@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "pca-manager"
+  namespace: istio-system
+data:
+  manifest.yaml: |-
+    providerName: "aws"
+    providerConfig:
+      aws:
+        signingCAArn: {{ .Values.signingCAArn }}
+        templateArn: {{ default "arn:aws:acm-pca:::template/SubordinateCACertificate_PathLen0/V1" .Values.templateArn }}
+        signingAlgorithm: SHA256WITHRSA
+    certificateParameters:
+      secretOptions:
+        istioCANamespace: "istio-system"
+        overrideExistingCACertsSecret: true
+      caOptions:
+        validityDays: {{ .Values.validityDays | default 3630 }}
+        keyLength: 2048
+        certSigningRequestParams:
+          subject:
+            commonname: "Istio CA"
+            country:
+              - "US"
+            locality:
+              - "Sunnyvale"
+            organization:
+              - "Istio"
+            organizationunit:
+              - "engineering"

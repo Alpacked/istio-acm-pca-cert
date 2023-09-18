@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "pca-manager"
+  namespace: istio-system
+spec:
+  template:
+    spec:
+      serviceAccountName: "pca-manager"
+      containers:
+      - name: getmesh
+        image: {{ .Values.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy | default "Always" }}
+        command: ["sh", "-c"]
+        args:
+        - |
+          kubectl config set-credentials pca-manager --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+          getmesh gen-ca --config-file manifest.yaml
+        volumeMounts:
+        - name: config
+          mountPath: /app/manifest.yaml
+          readOnly: true
+          subPath: manifest.yaml
+      restartPolicy: {{ .Values.restartPolicy | default "Never" }}
+      volumes:
+      - name: config
+        configMap:
+          name: pca-manager
+  backoffLimit: {{ .Values.backoffLimit | default 2 }}
