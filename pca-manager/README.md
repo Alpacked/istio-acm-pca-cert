@@ -1,7 +1,7 @@
 # Overview
 
 To use it, all you need to do is:
-1. Install `image` with custom image [getmesh](../getmesh/Dockerfile)
+1. Set `image` with custom image [getmesh](../getmesh/Dockerfile)
 2. Set arn `oidcRole` that have access to ACM PCA
 3. Set `signingCAArn` arn AWS PCA
 
