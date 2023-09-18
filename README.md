@@ -6,7 +6,7 @@ This solution helps to get CA certificate from AWS PCA and create custom secret 
 
 ## How to use it
 
-1. Build [getmesh](../getmesh/Dockerfile) docker image and push to ECR
+1. Build [getmesh](./getmesh/Dockerfile) docker image and push to ECR
 2. Create [AWS OIDC IAM role](./pca-manager/README.md#oidc-role) with access to the AWS PCA
 3. Set correct helm [values](./pca-manager/README.md#overview)
 4. Deploy it to your k8s cluster
